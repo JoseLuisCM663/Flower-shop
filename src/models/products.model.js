@@ -11,7 +11,7 @@ const productSchema = new Schema({
     cost:Number,
     stock:Number,
     colors:String,
-    status:Number
+    status:Number,
 },{
     timestamps:true,
     versionKey:false
