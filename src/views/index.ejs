@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <title>Flower Shop</title>
+</head>
+<body>
+    <div data-role="page" data-theme="a" id="uno">
+        <div data-role="header">
+                <h1>Flower Shop</h1>
+            <div data-role="navbar">
+                <ul>
+
+                    <li><a href="#dos" data-icon="delete">Eliminar</a></li>
+                    <li><a href="#uno" data-icon="plus" class="ui-btn-active">Insertar</a></li>
+                    <li><a href="#tres" data-icon="grid">Flores</a></li>
+                </ul>
+                <img src="https://www.interflora.es/blog/wp-content/uploads/significado-flores.jpg" style="width:100% "alt="">
+            </div>
+        </div>
+        <div role="main" class="ui-content">
+            <h2>Registrar Flores</h2>
+            <form  action="/api/products" method="POST">
+                <input type="text" name="barcode" placeholder="Codigo de barras">
+                <input type="text" name="description" placeholder="Nombre de la flor">
+                <input type="number" name="price" placeholder="Precio de compra">
+                <input type="number" name="cost" placeholder="Precio de venta">
+                <input type="number" name="stock" placeholder="Existencias">
+                <input type="text" name="colors" placeholder="Color">
+                <label for="flip-6">Estado</label>
+                <select name="status" id="status" data-role="slider" data-mini="true">
+                    <option value="0">No</option>
+                    <option value="1">Si</option>
+                </select>
+                <button type="submit" id="submit-6" class="ui-shadow ui-btn ui-corner-all ui-mini">Enviar</button>
+            </form>
+                </div>
+            <div data-role="footer">
+                <h4>H-company</h4>
+            </div><!-- /footer -->
+            </div>
+
+            <!-- Start of second page: #two -->
+<div data-role="page" id="dos" data-theme="a    ">
+
+    <div data-role="header">
+        <h1>Flower Shop</h1>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#dos" data-icon="delete">Eliminar</a></li>
+                <li><a href="#uno" data-icon="plus" class="ui-btn-active">Insertar</a></li>
+                <li><a href="#tres" data-icon="grid">Flores</a></li>
+            </ul>
+        </div>
+    </div>
+    <ul data-role="listview" data-filter="true" data-filter-placeholder="Busca en tus flores..." data-filter-theme="a" data-inset="true">
+        <% products.forEach((product) => { %>
+
+        <li><%= product.description %></li>
+        <form action="/api/products/<%= product.barcode %>/delete" method="POST">
+            <button type="submit" class="ui-btn ui-btn-inline">Eliminar</button>
+        </form>
+        <% }) %>
+        </ul>
+
+
+	<div data-role="footer">
+		<h4>H-company</h4>
+	</div><!-- /footer -->
+</div><!-- /page three -->
+<div data-role="page" id="tres" data-theme="a">
+
+    <div data-role="header">
+        <h1>Flower Shop</h1>
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#dos" data-icon="delete">Eliminar</a></li>
+                <li><a href="#uno" data-icon="plus" class="ui-btn-active">Insertar</a></li>
+                <li><a href="#tres" data-icon="grid">Flores</a></li>
+            </ul>
+        </div>
+    </div>
+    <h2>Lista de Flores</h2>
+    <form>
+        <input data-type="search" id="searchForCollapsibleSetChildren" >
+    </form>
+    <div data-role="collapsibleset" data-filter="true" data-children="> div, > div div ul li" data-inset="true" id="collapsiblesetForFilterChildren" data-input="#searchForCollapsibleSetChildren">
+        <% products.forEach((product) => { %>
+            <div data-role="collapsible" data-filtertext="<%= product.description %>">
+                <h1><%= product.description %></h1>
+                <ul data-role="listview" data-inset="false">
+                    <li>Codigo de barras:<%= product.barcode %></li>
+                    <li>Precio de compra:<%= product.price %></li>
+                    <li>Precio de venta:<%= product.cost %></li>
+                    <li>Existencias:<%= product.stock %></li>
+                    <li>color:<%= product.colors%></li>
+                    <li>Estatus:<%= product.status %></li>
+                    <a href="/api/products/<%= product.barcode %>" class="ui-btn ui-btn-inline">editar</a>
+                </ul>
+            </div>
+        <% }) %>
+            </div>
+
+	<div data-role="footer">
+		<h4>H-company</h4>
+	</div><!-- /footer -->
+</div><!-- /page three -->
+</body>
+</html>
